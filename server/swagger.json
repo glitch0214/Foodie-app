@@ -1,0 +1,2093 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9000",
+            "description": "Local server"
+        },
+        {
+            "url": "https://foodie-app.azurewebsites.net",
+            "description": "Production server"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "cookieAuth": {
+                "type": "apiKey",
+                "in": "cookie",
+                "name": "foodie"
+            }
+        },
+        "schemas": {}
+    },
+    "security": [
+        {
+            "cookieAuth": []
+        }
+    ],
+    "paths": {
+        "/api/v1/register": {
+            "post": {
+                "security": [],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "description": "Register a new user",
+                "operationId": "register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "description": "Username",
+                                        "example": "test"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "Email",
+                                        "example": "test@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "Password",
+                                        "example": "test"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Username",
+                                            "example": "test"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Password",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "headers": {
+                            "Set-Cookie": {
+                                "schema": {
+                                    "type": "string",
+                                    "description": "Set-Cookie"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/authenticate": {
+            "post": {
+                "security": [],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login a user",
+                "description": "Login a user",
+                "operationId": "login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "description": "Username",
+                                        "example": "test"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "Password",
+                                        "example": "test"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Username",
+                                            "example": "test"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Password",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "headers": {
+                            "Set-Cookie": {
+                                "schema": {
+                                    "type": "string",
+                                    "description": "Set-Cookie"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "delete": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout a user",
+                "description": "Logout a user",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "Logout successful"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/check-session": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Check if user is logged in",
+                "description": "Check if user is logged in",
+                "operationId": "checkSession",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "username": {
+                                            "type": "string",
+                                            "description": "Username",
+                                            "example": "test"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "description": "Password",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/post": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create a new post",
+                "description": "Create a new post",
+                "operationId": "createPost",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Content",
+                                        "example": "test"
+                                    },
+                                    "privacy": {
+                                        "type": "string",
+                                        "description": "Privacy",
+                                        "example": "public"
+                                    },
+                                    "photos": {
+                                        "type": "array",
+                                        "description": "Photos",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary",
+                                            "description": "Photo"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "description": "Title",
+                                            "example": "test"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{username}/posts": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get all posts by a user",
+                "description": "Get all posts by a user",
+                "operationId": "getPosts",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/post/{post_id}": {
+            "patch": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update a post",
+                "description": "Update a post",
+                "operationId": "updatePost",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Content",
+                                        "example": "test"
+                                    },
+                                    "privacy": {
+                                        "type": "string",
+                                        "description": "Privacy",
+                                        "example": "public"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "description": "Title",
+                                            "example": "test"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete" : {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete a post",
+                "description": "Delete a post",
+                "operationId": "deletePost",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "Post deleted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get" : {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get a post",
+                "description": "Get a post",
+                "operationId": "getPost",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "description": "Title",
+                                            "example": "test"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
+        "/api/v1/like/post/{post_id}" : {
+            "post" : {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Like"
+                ],
+                "summary": "Like a post",
+                "description": "Like a post",
+                "operationId": "likePost",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "Post liked"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/post/likes/{post_id}" : {
+            "get" : {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Like"
+                ],
+                "summary": "Get likes of a post",
+                "description": "Get likes of a post",
+                "operationId": "getPostLikes",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "likes": {
+                                            "type": "array",
+                                            "description": "Likes",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
+        "/api/v1/search": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search for posts",
+                "description": "Search for posts",
+                "operationId": "searchPosts",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/bookmark/post/{post_id}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Bookmarks"
+                ],
+                "summary": "Bookmark a post",
+                "description": "Bookmark a post",
+                "operationId": "bookmarkPost",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "Post bookmarked"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/bookmarks": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Bookmarks"
+                ],
+                "summary": "Get all bookmarks",
+                "description": "Get all bookmarks",
+                "operationId": "getBookmarks",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/comment/{post_id}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Comment on a post",
+                "description": "Comment on a post",
+                "operationId": "commentPost",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "body": {
+                                        "type": "string",
+                                        "description": "Content",
+                                        "example": "test"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Get all comments by a post",
+                "description": "Get all comments by a post",
+                "operationId": "getComments",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/comment/{comment_id}": {
+            "delete": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Delete a comment",
+                "description": "Delete a comment",
+                "operationId": "deleteComment",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "Comment deleted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Update a comment",
+                "description": "Update a comment",
+                "operationId": "updateComment",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "body": {
+                                        "type": "string",
+                                        "description": "Content",
+                                        "example": "test"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/reply": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Reply"
+                ],
+                "summary": "Reply to a comment",
+                "description": "Reply to a comment",
+                "operationId": "replyComment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "body": {
+                                        "type": "string",
+                                        "description": "Content",
+                                        "example": "test"
+                                    },
+                                    "comment_id": {
+                                        "type": "string",
+                                        "description": "Comment ID",
+                                        "example": "test"
+                                    },
+                                    "post_id": {
+                                        "type": "string",
+                                        "description": "Post ID",
+                                        "example": "test"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Reply"
+                ],
+                "summary": "Get all replies by a comment",
+                "description": "Get all replies by a comment",
+                "operationId": "getReplies",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "query",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "post_id",
+                        "in": "query",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/like/comment/{comment_id}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Like"
+                ],
+                "summary": "Like a comment",
+                "description": "Like a comment",
+                "operationId": "likeComment",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "description": "Comment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "Comment liked"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/feed": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Get feed",
+                "description": "Get feed",
+                "operationId": "getFeed",
+                "parameters": [
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/follow/{follow_id}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Follow"
+                ],
+                "summary": "Follow a user",
+                "description": "Follow a user",
+                "operationId": "followUser",
+                "parameters": [
+                    {
+                        "name": "follow_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "User followed"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/unfollow/{follow_id}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Follow"
+                ],
+                "summary": "Unfollow a user",
+                "description": "Unfollow a user",
+                "operationId": "unfollowUser",
+                "parameters": [
+                    {
+                        "name": "follow_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "User unfollowed"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{username}/following": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Follow"
+                ],
+                "summary": "Get following",
+                "description": "Get following",
+                "operationId": "getFollowing",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{username}/followers": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Follow"
+                ],
+                "summary": "Get followers",
+                "description": "Get followers",
+                "operationId": "getFollowers",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/people/suggested": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Follow"
+                ],
+                "summary": "Get suggested people",
+                "description": "Get suggested people",
+                "operationId": "getSuggestedPeople",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/message/{user_id}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Send message",
+                "description": "Send message",
+                "operationId": "sendMessage",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "text": {
+                                        "type": "string",
+                                        "description": "Message",
+                                        "example": "test"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "description": "Message"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message",
+                                            "example": "Message sent"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/messages": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Get messages",
+                "description": "Get messages",
+                "operationId": "getMessages",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/messages/unread": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Get unread messages",
+                "description": "Get unread messages",
+                "operationId": "getUnreadMessages",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/message/read/{from_id}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Mark message as read",
+                "description": "Mark message as read",
+                "operationId": "markMessageAsRead",
+                "parameters": [
+                    {
+                        "name": "from_id",
+                        "in": "path",
+                        "description": "From ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/messages/{target_id}": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Get messages",
+                "description": "Get messages",
+                "operationId": "getMessages",
+                "parameters": [
+                    {
+                        "name": "target_id",
+                        "in": "path",
+                        "description": "Target ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/notifications": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get notifications",
+                "description": "Get notifications",
+                "operationId": "getNotifications",
+                "parameters": [
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offser",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/notifications/unread": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get unread notifications",
+                "description": "Get unread notifications",
+                "operationId": "getUnreadNotifications",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "description": {
+                                                "type": "string",
+                                                "description": "Content",
+                                                "example": "test"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/notifications/mark": {
+            "patch": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Mark notification as read",
+                "description": "Mark notification as read",
+                "operationId": "markNotificationAsRead",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/read/notification/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get notification",
+                "description": "Get notification",
+                "operationId": "getNotification",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Notification ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{username}": {
+            "get": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user",
+                "description": "Get user",
+                "operationId": "getUser",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/{username}/edit" : {
+            "patch" : {
+                "security" : [
+                    {
+                        "cookieAuth" : [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags" : [
+                    "User"
+                ],
+                "summary" : "Edit user",
+                "description" : "Edit user",
+                "operationId" : "editUser",
+                "parameters" : [
+                    {
+                        "name" : "username",
+                        "in" : "path",
+                        "description" : "Username",
+                        "required" : true,
+                        "schema" : {
+                            "type" : "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string",
+                                        "description": "First name",
+                                        "example": "test"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "description": "Last name",
+                                        "example": "test"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "description": "Email",
+                                        "example": "test"
+                                    },
+                                    "birthday": {
+                                        "type": "string",
+                                        "description": "Password",
+                                        "example": "test"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "description": "Phone",
+                                        "example": "test"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "Successful operation",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "description" : {
+                                            "type" : "string",
+                                            "description" : "Content",
+                                            "example" : "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/upload/{field}": {
+            "post": {
+                "security": [
+                    {
+                        "cookieAuth": [
+                            "foodie"
+                        ]
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Upload user image",
+                "description": "Upload user image",
+                "operationId": "uploadUserImage",
+                "parameters": [
+                    {
+                        "name": "field",
+                        "in": "path",
+                        "description": "Field",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Content",
+                                            "example": "test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
